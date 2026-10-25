@@ -351,6 +351,84 @@
             </Setter>
         </Style>
 
+        <Style TargetType="CheckBox">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <StackPanel Background="Transparent" Orientation="Horizontal">
+                            <Border
+                                x:Name="Box"
+                                Width="16"
+                                Height="16"
+                                VerticalAlignment="Center"
+                                Background="{DynamicResource PanelBrush}"
+                                BorderBrush="{DynamicResource LineBrush}"
+                                BorderThickness="1"
+                                CornerRadius="3">
+                                <Path
+                                    x:Name="Check"
+                                    Data="M2,7 L6,11 L13,3"
+                                    MaxHeight="10"
+                                    Stretch="Uniform"
+                                    Stroke="{DynamicResource AccentBrush}"
+                                    StrokeEndLineCap="Round"
+                                    StrokeStartLineCap="Round"
+                                    StrokeThickness="2"
+                                    Visibility="Collapsed" />
+                            </Border>
+                            <ContentPresenter Margin="6,0,0,0" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Check" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Box" Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.45" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ScrollBar">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="10" />
+            <Setter Property="MinWidth" Value="10" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Grid Background="Transparent">
+                            <Track x:Name="PART_Track" IsDirectionReversed="true">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageUpCommand" Focusable="False" Opacity="0" />
+                                </Track.DecreaseRepeatButton>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageDownCommand" Focusable="False" Opacity="0" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb>
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Border
+                                                    Margin="1,0"
+                                                    Background="{DynamicResource LineBrush}"
+                                                    CornerRadius="4" />
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style TargetType="TabControl">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
@@ -419,17 +497,37 @@
                                 Width="16"
                                 Height="28"
                                 VerticalAlignment="Center"
-                                Background="Transparent"
-                                BorderThickness="0"
                                 ClickMode="Press"
+                                Focusable="False"
                                 IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
-                                <Path
-                                    x:Name="ExpandGlyph"
-                                    Width="6"
-                                    Height="10"
-                                    Data="M 0 0 L 5 5 L 0 10 Z"
-                                    Fill="{DynamicResource GlyphBrush}"
-                                    Stretch="Uniform" />
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="Transparent">
+                                            <Path
+                                                x:Name="ExpandGlyph"
+                                                Width="6"
+                                                Height="10"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Data="M 0 0 L 5 5 L 0 10 Z"
+                                                Fill="{DynamicResource GlyphBrush}"
+                                                RenderTransformOrigin="0.5,0.5"
+                                                Stretch="Uniform" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="ExpandGlyph" Property="RenderTransform">
+                                                    <Setter.Value>
+                                                        <RotateTransform Angle="90" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="ExpandGlyph" Property="Fill" Value="{DynamicResource AccentBrush}" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
                             </ToggleButton>
 
                             <Border
@@ -466,13 +564,6 @@
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter TargetName="HeaderBorder" Property="Background" Value="{DynamicResource AccentSoftBrush}" />
                                 <Setter Property="Foreground" Value="{DynamicResource AccentBrush}" />
-                            </Trigger>
-                            <Trigger Property="IsExpanded" Value="True">
-                                <Setter TargetName="ExpandGlyph" Property="RenderTransform">
-                                    <Setter.Value>
-                                        <RotateTransform Angle="90" CenterX="3" CenterY="5" />
-                                    </Setter.Value>
-                                </Setter>
                             </Trigger>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
