@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApplicationPackage SchemaVersion="1.0"
+                    ProductType="Application"
+                    Name="CAD Add-in Manager">
+  <Components>
+    <ComponentEntry AppName="CADAddinManager"
+                    Version="1.0"
+                    ModuleName="./Contents/V26/CADAddinManager.dll"
+                    AppDescription="CAD Add-in Manager for VinaCAD"
+                    LoadOnAutoCADStartup="True" />
+  </Components>
+</ApplicationPackage>

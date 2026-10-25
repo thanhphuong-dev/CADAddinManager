@@ -1,0 +1,40 @@
+{
+  "profiles": {
+    "Cad2022": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\Autodesk\\AutoCAD 2022\\acad.exe"
+    },
+    "Cad2023": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\Autodesk\\AutoCAD 2023\\acad.exe"
+    },
+    "Cad2024": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\Autodesk\\AutoCAD 2024\\acad.exe"
+    },
+    "Cad2025": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\Autodesk\\AutoCAD 2025\\acad.exe"
+    },
+    "Cad2026": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\Autodesk\\AutoCAD 2026\\acad.exe"
+    },
+    "Cad2027": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\Autodesk\\AutoCAD 2027\\acad.exe"
+    },
+    "VinaCad2026": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\VinaCAD\\VinaCAD 2026\\VinaCAD.exe"
+    },
+    "Zwcad2021": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\ZWSOFT\\ZWCAD 2021\\ZWCAD.exe"
+    },
+    "Zwcad2026": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\ZWSOFT\\ZWCAD 2026\\ZWCAD.exe"
+    }
+  }
+}

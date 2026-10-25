@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ApplicationPackage SchemaVersion="1.0"
+                    AutodeskProduct="AutoCAD"
+                    ProductType="Application"
+                    Name="CAD Add-in Manager">
+  <Components>
+    <ComponentEntry AppName="CADAddinManager" Version="1.0" ModuleName="./20/CADAddinManager.dll" AppDescription="CAD Add-in Manager" LoadOnAutoCADStartup="True" LoadOnCommandInvocation="True" LoadOnRequest="True">
+      <Commands>
+        <Command Local="CADManager" Global="CADManager" />
+        <Command Local="CADManagerRunLast" Global="CADManagerRunLast" />
+        <Command Local="CADManagerRibbon" Global="CADManagerRibbon" LoadOnAutoCADStartup="True" StartupCommand="True" />
+      </Commands>
+    </ComponentEntry>
+    <RuntimeRequirements Platform="AutoCAD*" SeriesMin="R23.1" SeriesMax="R23.1"/>
+  </Components>
+  <Components>
+    <ComponentEntry AppName="CADAddinManager" Version="1.0" ModuleName="./21/CADAddinManager.dll" AppDescription="CAD Add-in Manager" LoadOnAutoCADStartup="True" LoadOnCommandInvocation="True" LoadOnRequest="True">
+      <Commands>
+        <Command Local="CADManager" Global="CADManager" />
+        <Command Local="CADManagerRunLast" Global="CADManagerRunLast" />
+        <Command Local="CADManagerRibbon" Global="CADManagerRibbon" LoadOnAutoCADStartup="True" StartupCommand="True" />
+      </Commands>
+    </ComponentEntry>
+    <RuntimeRequirements Platform="AutoCAD*" SeriesMin="R24.0" SeriesMax="R24.0"/>
+  </Components>
+  <Components>
+    <ComponentEntry AppName="CADAddinManager" Version="1.0" ModuleName="./22/CADAddinManager.dll" AppDescription="CAD Add-in Manager" LoadOnAutoCADStartup="True" LoadOnCommandInvocation="True" LoadOnRequest="True">
+      <Commands>
+        <Command Local="CADManager" Global="CADManager" />
+        <Command Local="CADManagerRunLast" Global="CADManagerRunLast" />
+        <Command Local="CADManagerRibbon" Global="CADManagerRibbon" LoadOnAutoCADStartup="True" StartupCommand="True" />
+      </Commands>
+    </ComponentEntry>
+    <RuntimeRequirements Platform="AutoCAD*" SeriesMin="R24.1" SeriesMax="R24.1"/>
+  </Components>
+  <Components>
+    <ComponentEntry AppName="CADAddinManager" Version="1.0" ModuleName="./23/CADAddinManager.dll" AppDescription="CAD Add-in Manager" LoadOnAutoCADStartup="True" LoadOnCommandInvocation="True" LoadOnRequest="True">
+      <Commands>
+        <Command Local="CADManager" Global="CADManager" />
+        <Command Local="CADManagerRunLast" Global="CADManagerRunLast" />
+        <Command Local="CADManagerRibbon" Global="CADManagerRibbon" LoadOnAutoCADStartup="True" StartupCommand="True" />
+      </Commands>
+    </ComponentEntry>
+    <RuntimeRequirements Platform="AutoCAD*" SeriesMin="R24.2" SeriesMax="R24.2"/>
+  </Components>
+  <Components>
+    <ComponentEntry AppName="CADAddinManager" Version="1.0" ModuleName="./24/CADAddinManager.dll" AppDescription="CAD Add-in Manager" LoadOnAutoCADStartup="True" LoadOnCommandInvocation="True" LoadOnRequest="True">
+      <Commands>
+        <Command Local="CADManager" Global="CADManager" />
+        <Command Local="CADManagerRunLast" Global="CADManagerRunLast" />
+        <Command Local="CADManagerRibbon" Global="CADManagerRibbon" LoadOnAutoCADStartup="True" StartupCommand="True" />
+      </Commands>
+    </ComponentEntry>
+    <RuntimeRequirements Platform="AutoCAD*" SeriesMin="R24.3" SeriesMax="R24.3"/>
+  </Components>
+  <Components>
+    <ComponentEntry AppName="CADAddinManager" Version="1.0" ModuleName="./25/CADAddinManager.dll" AppDescription="CAD Add-in Manager" LoadOnAutoCADStartup="True" LoadOnCommandInvocation="True" LoadOnRequest="True">
+      <Commands>
+        <Command Local="CADManager" Global="CADManager" />
+        <Command Local="CADManagerRunLast" Global="CADManagerRunLast" />
+        <Command Local="CADManagerRibbon" Global="CADManagerRibbon" LoadOnAutoCADStartup="True" StartupCommand="True" />
+      </Commands>
+    </ComponentEntry>
+    <RuntimeRequirements Platform="AutoCAD*" SeriesMin="R25.0" SeriesMax="R25.0"/>
+  </Components>
+  <Components>
+    <ComponentEntry AppName="CADAddinManager" Version="1.0" ModuleName="./26/CADAddinManager.dll" AppDescription="CAD Add-in Manager" LoadOnAutoCADStartup="True" LoadOnCommandInvocation="True" LoadOnRequest="True">
+      <Commands>
+        <Command Local="CADManager" Global="CADManager" />
+        <Command Local="CADManagerRunLast" Global="CADManagerRunLast" />
+        <Command Local="CADManagerRibbon" Global="CADManagerRibbon" LoadOnAutoCADStartup="True" StartupCommand="True" />
+      </Commands>
+    </ComponentEntry>
+    <RuntimeRequirements Platform="AutoCAD*" SeriesMin="R25.1" SeriesMax="R25.1"/>
+  </Components>
+</ApplicationPackage>
