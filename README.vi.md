@@ -23,11 +23,11 @@ CAD Add-in Manager là công cụ hỗ trợ phát triển add-in trên các n�
 
 ![Tab ribbon Add-in Manager trong AutoCAD](docs/screenshots/ribbon.png)
 
-**Cửa sổ quản lý — giao diện sáng, tiếng Anh:**
+**Cửa sổ quản lý — giao diện sáng, tiếng Việt:**
 
 ![Cửa sổ quản lý, giao diện sáng](docs/screenshots/manager-light.png)
 
-**Cửa sổ quản lý — giao diện tối, tiếng Việt:**
+**Cửa sổ quản lý — giao diện tối, tiếng Anh:**
 
 ![Cửa sổ quản lý, giao diện tối](docs/screenshots/manager-dark.png)
 
