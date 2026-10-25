@@ -34,7 +34,6 @@ CAD Add-in Manager là công cụ hỗ trợ phát triển add-in trên các n�
 | `CADManagerDockPanel` | Bật/tắt bảng trace/debug có thể neo cửa sổ | Mọi phần mềm |
 | `CADListLoadedDlls` | Liệt kê các DLL không mặc định đang được nạp | Mọi phần mềm |
 | `CADManagerRibbon` | Tạo lại tab ribbon *Add-in Manager* | Mọi phần mềm (tự chạy khi khởi động qua bundle) |
-| `CADVinaCadTest` | Kiểm tra đăng ký lệnh trong VinaCAD | Chỉ có trên bản build VinaCAD |
 
 ## Cài đặt
 

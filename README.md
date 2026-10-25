@@ -34,7 +34,6 @@ CAD Add-in Manager is a developer utility for CAD platforms. It lets you load, i
 | `CADManagerDockPanel` | Toggle the dockable trace/debug palette | All hosts |
 | `CADListLoadedDlls` | List non-default DLLs loaded by the host | All hosts |
 | `CADManagerRibbon` | Recreate the *Add-in Manager* ribbon tab | All hosts (runs automatically at startup via the bundle) |
-| `CADVinaCadTest` | Verify command registration in VinaCAD | VinaCAD builds only |
 
 ## Installation
 

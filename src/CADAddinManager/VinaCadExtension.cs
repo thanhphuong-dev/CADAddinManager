@@ -1,7 +1,6 @@
 #if VINACAD
 using Teigha.Runtime;
 using CADAddinManager.Command;
-using VinaCadApplication = Prima.VinaCAD.ApplicationServices.Application;
 
 [assembly: ExtensionApplication(typeof(CADAddinManager.VinaCadExtension))]
 [assembly: CommandClass(typeof(CADAddinManager.VinaCadExtension))]
@@ -30,17 +29,6 @@ public sealed class VinaCadExtension : IExtensionApplication
 
     public void Terminate()
     {
-    }
-
-    [CommandMethod("CADVinaCadTest")]
-    public void Test()
-    {
-        WriteMessage("\nCAD VinaCAD command registration is working.\n");
-    }
-
-    private static void WriteMessage(string message)
-    {
-        VinaCadApplication.DocumentManager.MdiActiveDocument?.Editor.WriteMessage(message);
     }
 }
 #endif
