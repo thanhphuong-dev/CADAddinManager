@@ -20,6 +20,9 @@ CAD Add-in Manager là công cụ hỗ trợ phát triển add-in trên các n�
 ## Ảnh chụp màn hình
 
 **Tab ribbon, tự nạp khi khởi động (AutoCAD 2023):**
+
+![Tab ribbon Add-in Manager trong AutoCAD](docs/screenshots/ribbon.png)
+
 ## Phần mềm được hỗ trợ
 
 | Phần mềm | Phiên bản | Nền .NET | Ghi chú |
