@@ -23,14 +23,6 @@ CAD Add-in Manager is a developer utility for CAD platforms. It lets you load, i
 
 ![Add-in Manager ribbon tab in AutoCAD](docs/screenshots/ribbon.png)
 
-**Manager window — light theme, Vietnamese:**
-
-![Add-in Manager window, light theme](docs/screenshots/manager-light.png)
-
-**Manager window — dark theme, Vietnamese:**
-
-![Add-in Manager window, dark theme](docs/screenshots/manager-dark.png)
-
 ## Supported hosts
 
 | Host | Versions | .NET runtime | Notes |
