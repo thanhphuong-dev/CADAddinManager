@@ -4,6 +4,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$normalizedVersion = $Version.TrimStart("v")
 $root = Resolve-Path (Join-Path $PSScriptRoot "..")
 $solution = Join-Path $root "CADAddinManager.sln"
 $projectDir = Join-Path $root "src\CADAddinManager"
@@ -24,7 +25,7 @@ foreach ($versionInfo in $versions) {
 
   if (-not $SkipBuild) {
     dotnet restore $solution --property:Configuration="$configuration"
-    dotnet build $solution --configuration "$configuration" --no-restore
+    dotnet build $solution --configuration "$configuration" --no-restore -p:Version="$normalizedVersion"
   }
   if (-not (Test-Path -LiteralPath (Join-Path $outputDir "CADAddinManager.dll"))) {
     throw "ZWCAD $product build output was not found in '$outputDir'."

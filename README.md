@@ -17,6 +17,20 @@ CAD Add-in Manager is a developer utility for CAD platforms. It lets you load, i
 - **Diagnostics** — a dockable trace/log palette and an auditor that lists every non-default DLL the host has loaded.
 - **Autoload bundles** — deploy once and the tool registers itself on the ribbon at startup; no `NETLOAD` required.
 
+## Screenshots
+
+**Ribbon tab, loaded automatically at startup (AutoCAD 2023):**
+
+![Add-in Manager ribbon tab in AutoCAD](docs/screenshots/ribbon.png)
+
+**Manager window — light theme, English:**
+
+![Add-in Manager window, light theme](docs/screenshots/manager-light.png)
+
+**Manager window — dark theme, Vietnamese:**
+
+![Add-in Manager window, dark theme](docs/screenshots/manager-dark.png)
+
 ## Supported hosts
 
 | Host | Versions | .NET runtime | Notes |

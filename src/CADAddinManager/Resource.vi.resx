@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Vietnamese satellite resources for CAD Add-in Manager.
+    Keys must stay in sync with Resource.resx.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppName" xml:space="preserve">
+    <value>CAD Add-in Manager</value>
+  </data>
+  <data name="FileNotExit" xml:space="preserve">
+    <value>Tệp không tồn tại. Vui lòng kiểm tra lại đường dẫn!</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Không tìm thấy tệp. Vui lòng kiểm tra lại.</value>
+  </data>
+  <data name="LoadCancelled" xml:space="preserve">
+    <value>Đã hủy nạp tệp.</value>
+  </data>
+  <data name="LoadInvalid" xml:space="preserve">
+    <value>Tệp không phải add-in hợp lệ hoặc không thể nạp.</value>
+  </data>
+  <data name="NeedAdmin" xml:space="preserve">
+    <value>Vui lòng kiểm tra lại thư mục và chạy với quyền quản trị viên (Admin)!</value>
+  </data>
+  <data name="NoItemSelected" xml:space="preserve">
+    <value>Chưa chọn mục nào.</value>
+  </data>
+  <data name="Successfully" xml:space="preserve">
+    <value>Thành công</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Trợ giúp</value>
+  </data>
+  <data name="HelpTooltip" xml:space="preserve">
+    <value>Mở trang GitHub của CAD Add-in Manager</value>
+  </data>
+  <data name="TempFiles" xml:space="preserve">
+    <value>Thư mục tạm</value>
+  </data>
+  <data name="TempFilesTooltip" xml:space="preserve">
+    <value>Mở thư mục tạm chứa các assembly add-in đã sao chép và log</value>
+  </data>
+  <data name="SearchTooltip" xml:space="preserve">
+    <value>Lọc lệnh theo tên (nhấn mũi tên xuống để nhảy vào danh sách)</value>
+  </data>
+  <data name="RecentTooltip" xml:space="preserve">
+    <value>Các DLL đã nạp gần đây — chọn một tệp để nạp lại</value>
+  </data>
+  <data name="LoadDll" xml:space="preserve">
+    <value>Nạp DLL</value>
+  </data>
+  <data name="Reload" xml:space="preserve">
+    <value>Nạp lại</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Gỡ</value>
+  </data>
+  <data name="RunSelected" xml:space="preserve">
+    <value>Chạy mục đã chọn</value>
+  </data>
+  <data name="Commands" xml:space="preserve">
+    <value>Lệnh</value>
+  </data>
+  <data name="Autolisp" xml:space="preserve">
+    <value>Autolisp</value>
+  </data>
+  <data name="ContextRun" xml:space="preserve">
+    <value>Chạy</value>
+  </data>
+  <data name="ContextOpenLocation" xml:space="preserve">
+    <value>Mở vị trí</value>
+  </data>
+  <data name="LanguageTooltip" xml:space="preserve">
+    <value>Ngôn ngữ giao diện: Auto (theo Windows) / English / Tiếng Việt</value>
+  </data>
+  <data name="ThemeTooltip" xml:space="preserve">
+    <value>Giao diện: Auto (theo màu của phần mềm CAD) / Sáng / Tối</value>
+  </data>
+</root>

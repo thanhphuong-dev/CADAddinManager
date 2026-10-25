@@ -13,6 +13,8 @@
     <CADTrimVersion>26</CADTrimVersion>
     <RootNamespace>CADAddinManager</RootNamespace>
     <AssemblyName>CADAddinManager</AssemblyName>
+    <Version>1.0.0</Version>
+    <NeutralLanguage>en</NeutralLanguage>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
@@ -168,14 +170,15 @@
   <Target Name="CopyBundleFiles" AfterTargets="CoreBuild" Condition="$(Configuration.Contains('Debug')) And '$(DeployToAutoCAD)' == 'true'">
     <ItemGroup>
       <BundleXml Include="$(ProjectDir)PackageContents.xml" />
-      <BundleFiles Include="$(TargetDir)*.*" />
     </ItemGroup>
     <PropertyGroup>
       <BundleRoot>$(APPDATA)\Autodesk\ApplicationPlugins\CADAddinManager.bundle\</BundleRoot>
+      <BundleSourceDir>$(TargetDir.TrimEnd('\'))</BundleSourceDir>
+      <BundleDestDir>$(BundleRoot)$(CADTrimVersion)</BundleDestDir>
     </PropertyGroup>
     <Message Text="Copy CADAddinManager files to $(BundleRoot)" Importance="high" />
     <Copy SourceFiles="@(BundleXml)" DestinationFolder="$(BundleRoot)" />
-    <Copy SourceFiles="@(BundleFiles)" DestinationFolder="$(BundleRoot)$(CADTrimVersion)\%(RecursiveDir)" />
+    <Exec Command="robocopy &quot;$(BundleSourceDir)&quot; &quot;$(BundleDestDir)&quot; /E /NFL /NDL /NJH /NJS /NP" IgnoreExitCode="true" />
   </Target>
 
   <Target Name="ValidateVinaCadSdk" BeforeTargets="ResolveAssemblyReferences" Condition="$(Configuration.Contains('V26'))">
@@ -189,7 +192,7 @@
   <Target Name="CopyVinaCadBundleFiles" AfterTargets="CoreBuild"
           Condition="$(Configuration.Contains('V26')) And '$(DeployToVinaCAD)' == 'true'">
     <ItemGroup>
-      <VinaCadBundleFiles Include="$(TargetDir)**\*.*" />
+      <BundleFiles Include="$([System.IO.Path]::Combine('$(TargetDir)', '**', '*.*'))" />
     </ItemGroup>
     <PropertyGroup>
       <VinaCadBundleRoot>$(APPDATA)\VinaCAD\ApplicationPlugins\CADAddinManager.bundle\</VinaCadBundleRoot>

@@ -4,6 +4,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$normalizedVersion = $Version.TrimStart("v")
 
 $root = Resolve-Path (Join-Path $PSScriptRoot "..")
 $solution = Join-Path $root "CADAddinManager.sln"
@@ -19,7 +20,7 @@ $zipPath = Join-Path $artifactsDir "CADAddinManager-VinaCAD-$Version-bundle.zip"
 
 if (-not $SkipBuild) {
   dotnet restore $solution --property:Configuration="$configuration"
-  dotnet build $solution --configuration "$configuration" --no-restore
+  dotnet build $solution --configuration "$configuration" --no-restore -p:Version="$normalizedVersion"
 }
 
 if (-not (Test-Path -LiteralPath (Join-Path $outputDir "CADAddinManager.dll"))) {

@@ -18,6 +18,7 @@ using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 #endif
 using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using Localization = CADAddinManager.Model.Localization;
 
 namespace CADAddinManager.ViewModel;
 
@@ -138,9 +139,15 @@ public class AddInManagerViewModel : ViewModelBase
         set => OnPropertyChanged(ref addinStartup, value);
     }
 
-    public ICommand HelpCommand => new RelayCommand(HelpCommandClick);
+    public ObservableCollection<string> RecentDlls { get; } = new ObservableCollection<string>(UserPreferences.RecentDlls);
 
-    public string AppTitle => "CAD Add-in Manager";
+    public ICommand HelpCommand => new RelayCommand(HelpCommandClick);
+    public ICommand ToggleLanguageCommand => new RelayCommand(ToggleLanguageClick);
+    public ICommand ToggleThemeCommand => new RelayCommand(ToggleThemeClick);
+
+    public string AppTitle => $"{Resource.AppName} {VersionText}";
+
+    public string VersionText => "v" + typeof(AddInManagerViewModel).Assembly.GetName().Version.ToString(3);
 #if Z21
     public string VersionRangeText => "ZWCAD 2021";
 #elif Z26
@@ -150,25 +157,64 @@ public class AddInManagerViewModel : ViewModelBase
 #else
     public string VersionRangeText => "AutoCAD 2020-2026";
 #endif
-    public string HelpText => "Help";
-    public string HelpTooltip => "Open the CAD Add-in Manager GitHub page";
-    public string TempFilesText => "Temp Files";
-    public string TempFilesTooltip => "Open the temporary folder used for copied add-in assemblies and logs";
-    public string SearchTooltip => "Search commands";
-    public string LoadDllText => "Load DLL";
-    public string ReloadText => "Reload";
-    public string RemoveText => "Remove";
-    public string CommandsText => "Commands";
-    public string LispText => "Autolisp";
+    public string HelpText => Resource.Help;
+    public string HelpTooltip => Resource.HelpTooltip;
+    public string TempFilesText => Resource.TempFiles;
+    public string TempFilesTooltip => Resource.TempFilesTooltip;
+    public string SearchTooltip => Resource.SearchTooltip;
+    public string RecentTooltip => Resource.RecentTooltip;
+    public string LoadDllText => Resource.LoadDll;
+    public string ReloadText => Resource.Reload;
+    public string RemoveText => Resource.Remove;
+    public string CommandsText => Resource.Commands;
+    public string LispText => Resource.Autolisp;
     public string OutputText => "Output";
     public string OpenFolderText => "Open Folder";
-    public string RunSelectedText => "Run Selected";
+    public string RunSelectedText => Resource.RunSelected;
     public string VendorDescriptionTooltip => "Vendor description";
-    public string ContextLoadDllText => "Load DLL";
-    public string ContextReloadText => "Reload";
-    public string ContextRunText => "Run";
-    public string ContextOpenLocationText => "Open Location";
-    public string ContextRemoveText => "Remove";
+    public string ContextLoadDllText => Resource.LoadDll;
+    public string ContextReloadText => Resource.Reload;
+    public string ContextRunText => Resource.ContextRun;
+    public string ContextOpenLocationText => Resource.ContextOpenLocation;
+    public string ContextRemoveText => Resource.Remove;
+
+    public string LanguageButtonText => UserPreferences.Language switch
+    {
+        "en" => "EN",
+        "vi" => "VI",
+        _ => "Auto"
+    };
+
+    public string ThemeButtonText => UserPreferences.Theme switch
+    {
+        "light" => "Light",
+        "dark" => "Dark",
+        _ => "Auto"
+    };
+
+    private void ToggleLanguageClick()
+    {
+        UserPreferences.Language = UserPreferences.Language switch
+        {
+            "auto" => "en",
+            "en" => "vi",
+            _ => "auto"
+        };
+        Localization.Apply(UserPreferences.Language);
+        OnPropertyChanged(string.Empty);
+    }
+
+    private void ToggleThemeClick()
+    {
+        UserPreferences.Theme = UserPreferences.Theme switch
+        {
+            "auto" => "light",
+            "light" => "dark",
+            _ => "auto"
+        };
+        ThemeManager.Apply(FrmAddInManager);
+        OnPropertyChanged(string.Empty);
+    }
 
     private string vendorDescription = string.Empty;
 
@@ -212,6 +258,7 @@ public class AddInManagerViewModel : ViewModelBase
 
     public AddInManagerViewModel()
     {
+        Localization.Apply(UserPreferences.Language);
         AssemLoader = new AssemLoader();
         MCADManagerBase = CADManagerBase.Instance;
         CommandItems = FreshTreeItems(false, MCADManagerBase.CADManager.Commands);
@@ -353,9 +400,7 @@ public class AddInManagerViewModel : ViewModelBase
         var fileName = openFileDialog.FileName;
         if (!File.Exists(fileName)) return;
         LoadAssemblyCommand(fileName);
-    }
-
-    private void ReloadCommandClick()
+    }    private void ReloadCommandClick()
     {
         if (SelectedCommandItem == null)
         {
@@ -377,14 +422,14 @@ public class AddInManagerViewModel : ViewModelBase
         LoadAssemblyCommand(path);
     }
 
-    private void LoadAssemblyCommand(string fileName)
+    private bool LoadAssemblyCommand(string fileName)
     {
         var addinType = MCADManagerBase.CADManager.LoadAddin(fileName, AssemLoader);
         switch (addinType)
         {
             case AddinType.Invalid:
                 MessageBox.Show(Resource.LoadInvalid);
-                return;
+                return false;
             case AddinType.Command:
                 IsTabCmdSelected = true;
                 FrmAddInManager.TabCommand.Focus();
@@ -398,10 +443,29 @@ public class AddInManagerViewModel : ViewModelBase
             default:
                 throw new ArgumentOutOfRangeException();
         }
-       
+
         MCADManagerBase.CADManager.SaveToAimIni();
         CommandItems = FreshTreeItems(false, MCADManagerBase.CADManager.Commands);
         LispFunctionItems = FreshTreeItems(false, MCADManagerBase.CADManager.LispFunctions);
+        UserPreferences.AddRecentDll(fileName);
+        RefreshRecentDlls();
+        return true;
+    }
+
+    /// <summary>Loads a DLL picked from the recent-files list; no-op when the file is missing.</summary>
+    public void LoadRecentDll(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path) || !File.Exists(path)) return;
+        LoadAssemblyCommand(path);
+    }
+
+    private void RefreshRecentDlls()
+    {
+        RecentDlls.Clear();
+        foreach (var path in UserPreferences.RecentDlls)
+        {
+            RecentDlls.Add(path);
+        }
     }
     private void RemoveAddinClick()
     {

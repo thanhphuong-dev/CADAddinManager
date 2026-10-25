@@ -3,6 +3,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$normalizedVersion = $Version.TrimStart("v")
 
 $root = Resolve-Path (Join-Path $PSScriptRoot "..")
 $solution = Join-Path $root "CADAddinManager.sln"
@@ -33,7 +34,7 @@ foreach ($versionInfo in $versions) {
   $bundleVersionDir = Join-Path $bundleRoot $folder
 
   dotnet restore $solution --property:Configuration="$configuration"
-  dotnet build $solution --configuration "$configuration" --no-restore
+  dotnet build $solution --configuration "$configuration" --no-restore -p:Version="$normalizedVersion"
 
   New-Item -ItemType Directory -Path $bundleVersionDir | Out-Null
   Copy-Item -Path (Join-Path $outputDir "*") -Destination $bundleVersionDir -Recurse -Force

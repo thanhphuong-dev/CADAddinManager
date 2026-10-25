@@ -30,18 +30,30 @@ public sealed class CADManagerBase
 {
     public void ExecuteCommand(bool faceless)
     {
-        var vm = new AddInManagerViewModel();
-        if (_activeCmd != null && faceless)
+        try
         {
-            RunActiveCommand();
-            return;
-        }
+            var vm = new AddInManagerViewModel();
+            if (_activeCmd != null && faceless)
+            {
+                RunActiveCommand();
+                return;
+            }
 
-        var FrmAddInManager = new FrmAddInManager(vm);
-        FrmAddInManager.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        // Application.ShowModelessWindow(FrmAddInManager);
-        FrmAddInManager.SetCadAsWindowOwner();
-        FrmAddInManager.Show();
+            var FrmAddInManager = new FrmAddInManager(vm);
+            FrmAddInManager.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            // Application.ShowModelessWindow(FrmAddInManager);
+            FrmAddInManager.SetCadAsWindowOwner();
+            FrmAddInManager.Show();
+        }
+        catch (Exception exception)
+        {
+            var logPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "CADAddinManager", "window-error.txt");
+            Directory.CreateDirectory(Path.GetDirectoryName(logPath)!);
+            File.WriteAllText(logPath, exception.ToString());
+            MessageBox.Show(exception.Message, "CAD Add-in Manager", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     public string ActiveTempFolder

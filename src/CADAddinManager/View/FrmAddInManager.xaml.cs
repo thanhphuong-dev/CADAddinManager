@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using CADAddinManager.ViewModel;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -19,7 +20,17 @@ public partial class FrmAddInManager : Window
         DataContext = vm;
         viewModel = vm;
         vm.FrmAddInManager = this;
+        ThemeManager.Apply(this);
         this.Closing += FrmAddInManager_Closing;
+    }
+
+    private void RecentDlls_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (CbRecentDlls.SelectedItem is string path)
+        {
+            viewModel.LoadRecentDll(path);
+            CbRecentDlls.SelectedItem = null;
+        }
     }
 
     private void FrmAddInManager_Closing(object sender, CancelEventArgs e)

@@ -128,5 +128,149 @@ namespace CADAddinManager {
                 return ResourceManager.GetString("Successfully", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string Help {
+            get {
+                return ResourceManager.GetString("Help", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Open the CAD Add-in Manager GitHub page.
+        /// </summary>
+        public static string HelpTooltip {
+            get {
+                return ResourceManager.GetString("HelpTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Temp Files.
+        /// </summary>
+        public static string TempFiles {
+            get {
+                return ResourceManager.GetString("TempFiles", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Open the temporary folder used for copied add-in assemblies and logs.
+        /// </summary>
+        public static string TempFilesTooltip {
+            get {
+                return ResourceManager.GetString("TempFilesTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Filter commands by name (press Down to jump into the list).
+        /// </summary>
+        public static string SearchTooltip {
+            get {
+                return ResourceManager.GetString("SearchTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Recently loaded DLLs — pick one to load it again.
+        /// </summary>
+        public static string RecentTooltip {
+            get {
+                return ResourceManager.GetString("RecentTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Load DLL.
+        /// </summary>
+        public static string LoadDll {
+            get {
+                return ResourceManager.GetString("LoadDll", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Reload.
+        /// </summary>
+        public static string Reload {
+            get {
+                return ResourceManager.GetString("Reload", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string Remove {
+            get {
+                return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Run Selected.
+        /// </summary>
+        public static string RunSelected {
+            get {
+                return ResourceManager.GetString("RunSelected", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Commands.
+        /// </summary>
+        public static string Commands {
+            get {
+                return ResourceManager.GetString("Commands", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Autolisp.
+        /// </summary>
+        public static string Autolisp {
+            get {
+                return ResourceManager.GetString("Autolisp", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Run.
+        /// </summary>
+        public static string ContextRun {
+            get {
+                return ResourceManager.GetString("ContextRun", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Open Location.
+        /// </summary>
+        public static string ContextOpenLocation {
+            get {
+                return ResourceManager.GetString("ContextOpenLocation", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Interface language: Auto (follow Windows) / English / Tiếng Việt.
+        /// </summary>
+        public static string LanguageTooltip {
+            get {
+                return ResourceManager.GetString("LanguageTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Theme: Auto (follow the CAD color scheme) / Light / Dark.
+        /// </summary>
+        public static string ThemeTooltip {
+            get {
+                return ResourceManager.GetString("ThemeTooltip", resourceCulture);
+            }
+        }
     }
 }

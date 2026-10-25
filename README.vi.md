@@ -17,6 +17,20 @@ CAD Add-in Manager là công cụ hỗ trợ phát triển add-in trên các n�
 - **Chẩn đoán** — bảng trace/log dạng palette có thể neo cửa sổ, cùng công cụ liệt kê mọi DLL không mặc định mà phần mềm CAD đã nạp.
 - **Bundle tự nạp** — cài một lần, công cụ tự tạo tab ribbon khi khởi động; không cần chạy `NETLOAD`.
 
+## Ảnh chụp màn hình
+
+**Tab ribbon, tự nạp khi khởi động (AutoCAD 2023):**
+
+![Tab ribbon Add-in Manager trong AutoCAD](docs/screenshots/ribbon.png)
+
+**Cửa sổ quản lý — giao diện sáng, tiếng Anh:**
+
+![Cửa sổ quản lý, giao diện sáng](docs/screenshots/manager-light.png)
+
+**Cửa sổ quản lý — giao diện tối, tiếng Việt:**
+
+![Cửa sổ quản lý, giao diện tối](docs/screenshots/manager-dark.png)
+
 ## Phần mềm được hỗ trợ
 
 | Phần mềm | Phiên bản | Nền .NET | Ghi chú |
