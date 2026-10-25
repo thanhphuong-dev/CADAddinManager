@@ -178,19 +178,16 @@ public class AddInManagerViewModel : ViewModelBase
     public string ContextOpenLocationText => Resource.ContextOpenLocation;
     public string ContextRemoveText => Resource.Remove;
 
-    public string LanguageButtonText => UserPreferences.Language switch
+    public string LanguageBadge => UserPreferences.Language switch
     {
         "en" => "EN",
         "vi" => "VI",
-        _ => "Auto"
+        _ => "A"
     };
 
-    public string ThemeButtonText => UserPreferences.Theme switch
-    {
-        "light" => "Light",
-        "dark" => "Dark",
-        _ => "Auto"
-    };
+    public Visibility ThemeAutoVisibility => UserPreferences.Theme == "auto" ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility ThemeLightVisibility => UserPreferences.Theme == "light" ? Visibility.Visible : Visibility.Collapsed;
+    public Visibility ThemeDarkVisibility => UserPreferences.Theme == "dark" ? Visibility.Visible : Visibility.Collapsed;
 
     private void ToggleLanguageClick()
     {

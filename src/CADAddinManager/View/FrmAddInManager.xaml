@@ -77,6 +77,12 @@
 
         <Style TargetType="Button" BasedOn="{StaticResource BaseButton}" />
 
+        <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Width" Value="38" />
+            <Setter Property="Height" Value="34" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+
         <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
             <Setter Property="Foreground" Value="{DynamicResource PanelBrush}" />
             <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
@@ -409,17 +415,54 @@
                 </StackPanel>
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal">
                     <Button
-                        Width="64"
-                        Margin="0,0,8,0"
+                        Style="{StaticResource IconButton}"
+                        Margin="0,0,6,0"
                         Command="{Binding ToggleLanguageCommand}"
-                        Content="{Binding LanguageButtonText}"
-                        ToolTip="{Binding LanguageTooltip}" />
+                        ToolTip="{Binding LanguageTooltip}">
+                        <Grid Width="20" Height="20">
+                            <Path
+                                Data="M28,16 a12,12 0 1 1 -24,0 a12,12 0 1 1 24,0 M4,16 H28 M10.2,16 a6,12 0 1 0 11.6,0 a6,12 0 1 0 -11.6,0"
+                                Stroke="{DynamicResource InkBrush}"
+                                StrokeThickness="1.7"
+                                Stretch="Uniform" />
+                            <TextBlock
+                                Text="{Binding LanguageBadge}"
+                                FontSize="8"
+                                FontWeight="Bold"
+                                Foreground="{DynamicResource AccentBrush}"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,-3,-2" />
+                        </Grid>
+                    </Button>
                     <Button
-                        Width="64"
+                        Style="{StaticResource IconButton}"
                         Margin="0,0,8,0"
                         Command="{Binding ToggleThemeCommand}"
-                        Content="{Binding ThemeButtonText}"
-                        ToolTip="{Binding ThemeTooltip}" />
+                        ToolTip="{Binding ThemeTooltip}">
+                        <Grid Width="20" Height="20">
+                            <Path
+                                Data="M16,4 A12,12 0 0 0 16,28 Z M28,16 a12,12 0 1 1 -24,0 a12,12 0 1 1 24,0"
+                                Fill="{DynamicResource InkBrush}"
+                                Stroke="{DynamicResource InkBrush}"
+                                StrokeThickness="1.7"
+                                Visibility="{Binding ThemeAutoVisibility}"
+                                Stretch="Uniform" />
+                            <Path
+                                Data="M20,3.5 A13,13 0 1 0 28.5,19 A10.5,10.5 0 0 1 20,3.5 Z"
+                                Fill="{DynamicResource InkBrush}"
+                                Visibility="{Binding ThemeDarkVisibility}"
+                                Stretch="Uniform" />
+                            <Path
+                                Data="M22.5,16 a6.5,6.5 0 1 1 -13,0 a6.5,6.5 0 1 1 13,0 M16,2.5 V6 M16,26 V29.5 M2.5,16 H6 M26,16 H29.5 M6.5,6.5 L9,9 M23,9 L25.5,6.5 M6.5,25.5 L9,23 M23,23 L25.5,25.5"
+                                Stroke="{DynamicResource InkBrush}"
+                                StrokeThickness="2"
+                                StrokeStartLineCap="Round"
+                                StrokeEndLineCap="Round"
+                                Visibility="{Binding ThemeLightVisibility}"
+                                Stretch="Uniform" />
+                        </Grid>
+                    </Button>
                     <Button
                         Width="92"
                         Margin="0,0,8,0"

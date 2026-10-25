@@ -11,6 +11,8 @@ using Autodesk.Windows;
 using CADAddinManager.Command;
 using CADAddinManager.View.Control;
 using ImageSource = System.Windows.Media.ImageSource;
+using Pen = System.Windows.Media.Pen;
+using Point = System.Windows.Point;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -157,24 +159,57 @@ public class App : ICadCommand, IExtensionApplication
         rps.Items.Add(btnLoadedDlls);
         return rp;
     }
+    private static readonly SolidColorBrush IconForeground = FreezeBrush(new SolidColorBrush(Colors.White));
+
+    private static SolidColorBrush FreezeBrush(SolidColorBrush brush)
+    {
+        brush.Freeze();
+        return brush;
+    }
+
+    // Puzzle piece: center rounded square with a round tab on each side.
     private static ImageSource CreateManagerIcon(double size)
     {
         var group = CreateIconBase(size, "#2563EB");
-        group.Children.Add(CreateGeometry("#FFFFFF", "M8,9 H24 V12 H8 Z M8,15 H24 V18 H8 Z M8,21 H18 V24 H8 Z", size));
+        var piece = new GeometryGroup();
+        piece.Children.Add(Geometry.Parse(
+            "M11,11 H21 A3,3 0 0 1 24,14 V18 A3,3 0 0 1 21,21 H11 A3,3 0 0 1 8,18 V14 A3,3 0 0 1 11,11 Z"));
+        piece.Children.Add(new EllipseGeometry(new Point(16, 7.5), 2.7, 2.7));
+        piece.Children.Add(new EllipseGeometry(new Point(16, 24.5), 2.7, 2.7));
+        piece.Children.Add(new EllipseGeometry(new Point(7.5, 16), 2.7, 2.7));
+        piece.Children.Add(new EllipseGeometry(new Point(24.5, 16), 2.7, 2.7));
+        group.Children.Add(new GeometryDrawing(IconForeground, null, piece));
         return FreezeIcon(group, size);
     }
 
+    // Circular replay arrow with an arrowhead, for "run last command".
     private static ImageSource CreateRunIcon(double size)
     {
         var group = CreateIconBase(size, "#16A34A");
-        group.Children.Add(CreateGeometry("#FFFFFF", "M12,8 L24,16 L12,24 Z", size));
+        var stroke = new Pen(IconForeground, 2.6)
+        {
+            StartLineCap = PenLineCap.Round,
+            EndLineCap = PenLineCap.Round
+        };
+        stroke.Freeze();
+        group.Children.Add(new GeometryDrawing(null, stroke, Geometry.Parse("M16,7.5 A8.5,8.5 0 1 0 24.5,16")));
+        group.Children.Add(new GeometryDrawing(IconForeground, null, Geometry.Parse("M24.5,9.4 L28.2,15.2 L20.8,15.2 Z")));
         return FreezeIcon(group, size);
     }
 
+    // Isometric package cube, for "loaded DLLs".
     private static ImageSource CreateDllIcon(double size)
     {
         var group = CreateIconBase(size, "#D97706");
-        group.Children.Add(CreateGeometry("#FFFFFF", "M8,8 H14 V14 H8 Z M18,8 H24 V14 H18 Z M8,18 H14 V24 H8 Z M18,18 H24 V24 H18 Z", size));
+        var stroke = new Pen(IconForeground, 2.2)
+        {
+            StartLineCap = PenLineCap.Round,
+            EndLineCap = PenLineCap.Round,
+            LineJoin = PenLineJoin.Round
+        };
+        stroke.Freeze();
+        group.Children.Add(new GeometryDrawing(null, stroke, Geometry.Parse(
+            "M16,5.5 L26,10.75 V21.25 L16,26.5 L6,21.25 V10.75 Z M6.5,11 L16,16 L25.5,11 M16,16 V26")));
         return FreezeIcon(group, size);
     }
 
@@ -188,14 +223,6 @@ public class App : ICadCommand, IExtensionApplication
             null,
             Geometry.Parse("M6,3 H26 C27.66,3 29,4.34 29,6 V26 C29,27.66 27.66,29 26,29 H6 C4.34,29 3,27.66 3,26 V6 C3,4.34 4.34,3 6,3 Z")));
         return group;
-    }
-
-    private static GeometryDrawing CreateGeometry(string color, string path, double size)
-    {
-        return new GeometryDrawing(
-            new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(color)),
-            null,
-            Geometry.Parse(path));
     }
 
     private static ImageSource FreezeIcon(DrawingGroup group, double size)
