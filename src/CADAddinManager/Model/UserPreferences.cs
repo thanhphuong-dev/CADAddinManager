@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 
 namespace CADAddinManager.Model;
@@ -26,17 +27,30 @@ public static class UserPreferences
         return new IniFile(prefsPath);
     }
 
-    /// <summary>Interface language preference: "auto", "en" or "vi".</summary>
+    /// <summary>Interface language preference: "en" or "vi". Defaults to the Windows language until changed.</summary>
     public static string Language
     {
-        get => Read("General", "Language", "auto");
+        get
+        {
+            var value = Read("General", "Language", string.Empty);
+            if (value != "en" && value != "vi")
+            {
+                value = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "vi" ? "vi" : "en";
+            }
+
+            return value;
+        }
         set => Prefs.Write("General", "Language", value);
     }
 
-    /// <summary>Theme preference: "auto", "light" or "dark".</summary>
+    /// <summary>Theme preference: "light" or "dark". Defaults to light.</summary>
     public static string Theme
     {
-        get => Read("General", "Theme", "auto");
+        get
+        {
+            var value = Read("General", "Theme", "light");
+            return value == "dark" ? "dark" : "light";
+        }
         set => Prefs.Write("General", "Theme", value);
     }
 

@@ -178,37 +178,21 @@ public class AddInManagerViewModel : ViewModelBase
     public string ContextOpenLocationText => Resource.ContextOpenLocation;
     public string ContextRemoveText => Resource.Remove;
 
-    public string LanguageBadge => UserPreferences.Language switch
-    {
-        "en" => "EN",
-        "vi" => "VI",
-        _ => "A"
-    };
+    public string LanguageBadge => UserPreferences.Language == "vi" ? "VI" : "EN";
 
-    public Visibility ThemeAutoVisibility => UserPreferences.Theme == "auto" ? Visibility.Visible : Visibility.Collapsed;
     public Visibility ThemeLightVisibility => UserPreferences.Theme == "light" ? Visibility.Visible : Visibility.Collapsed;
     public Visibility ThemeDarkVisibility => UserPreferences.Theme == "dark" ? Visibility.Visible : Visibility.Collapsed;
 
     private void ToggleLanguageClick()
     {
-        UserPreferences.Language = UserPreferences.Language switch
-        {
-            "auto" => "en",
-            "en" => "vi",
-            _ => "auto"
-        };
+        UserPreferences.Language = UserPreferences.Language == "vi" ? "en" : "vi";
         Localization.Apply(UserPreferences.Language);
         OnPropertyChanged(string.Empty);
     }
 
     private void ToggleThemeClick()
     {
-        UserPreferences.Theme = UserPreferences.Theme switch
-        {
-            "auto" => "light",
-            "light" => "dark",
-            _ => "auto"
-        };
+        UserPreferences.Theme = UserPreferences.Theme == "dark" ? "light" : "dark";
         ThemeManager.Apply(FrmAddInManager);
         OnPropertyChanged(string.Empty);
     }

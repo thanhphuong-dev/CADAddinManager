@@ -2,15 +2,12 @@ using System;
 using System.Linq;
 using System.Windows;
 using CADAddinManager.Model;
-using Microsoft.Win32;
 
 namespace CADAddinManager.View;
 
 /// <summary>
-/// Resolves and applies the light/dark theme to the add-in manager window.
-/// "auto" follows the host application color scheme (AutoCAD registry profile);
-/// light/dark force a fixed theme. VinaCAD and ZWCAD have no exposed color-scheme
-/// setting, so "auto" falls back to light for them.
+/// Applies the light/dark theme to the add-in manager window. The user picks a fixed
+/// theme (light or dark); there is no auto mode.
 /// </summary>
 public static class ThemeManager
 {
@@ -39,46 +36,6 @@ public static class ThemeManager
 
     public static string ResolveTheme()
     {
-        var preference = UserPreferences.Theme;
-        if (preference == "light" || preference == "dark")
-        {
-            return preference;
-        }
-
-        return DetectHostDarkTheme() ? "dark" : "light";
-    }
-
-    private static bool DetectHostDarkTheme()
-    {
-        try
-        {
-            using var autoCadKey = Registry.CurrentUser.OpenSubKey(@"Software\Autodesk\AutoCAD");
-            if (autoCadKey == null) return false;
-
-            foreach (var releaseName in autoCadKey.GetSubKeyNames())
-            {
-                using var releaseKey = autoCadKey.OpenSubKey(releaseName);
-                var acads = releaseKey?.GetSubKeyNames() ?? Array.Empty<string>();
-                foreach (var acadName in acads.Where(n => n.StartsWith("ACAD-", StringComparison.OrdinalIgnoreCase)))
-                {
-                    using var profilesKey = releaseKey.OpenSubKey(acadName + @"\Profiles");
-                    foreach (var profileName in profilesKey?.GetSubKeyNames() ?? Array.Empty<string>())
-                    {
-                        using var generalKey = profilesKey.OpenSubKey(profileName + @"\General");
-                        var scheme = generalKey?.GetValue("ColorScheme") as string;
-                        if (scheme != null && scheme.IndexOf("Dark", StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        catch
-        {
-            // Registry layout differs between versions; fall back to light.
-        }
-
-        return false;
+        return UserPreferences.Theme == "dark" ? "dark" : "light";
     }
 }

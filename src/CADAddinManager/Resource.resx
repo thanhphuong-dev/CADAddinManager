@@ -133,9 +133,9 @@
     <value>Open Location</value>
   </data>
   <data name="LanguageTooltip" xml:space="preserve">
-    <value>Interface language: Auto (follow Windows) / English / Tiếng Việt</value>
+    <value>Interface language: English / Tiếng Việt</value>
   </data>
   <data name="ThemeTooltip" xml:space="preserve">
-    <value>Theme: Auto (follow the CAD color scheme) / Light / Dark</value>
+    <value>Color theme: Light / Dark</value>
   </data>
 </root>

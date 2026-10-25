@@ -129,9 +129,9 @@
     <value>Mở vị trí</value>
   </data>
   <data name="LanguageTooltip" xml:space="preserve">
-    <value>Ngôn ngữ giao diện: Auto (theo Windows) / English / Tiếng Việt</value>
+    <value>Ngôn ngữ giao diện: English / Tiếng Việt</value>
   </data>
   <data name="ThemeTooltip" xml:space="preserve">
-    <value>Giao diện: Auto (theo màu của phần mềm CAD) / Sáng / Tối</value>
+    <value>Giao diện: Sáng / Tối</value>
   </data>
 </root>
