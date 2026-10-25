@@ -1,6 +1,5 @@
 param(
   [Parameter(Mandatory = $true)][string]$Version,
-  [switch]$IncludeZWCAD,
   [switch]$SkipBuild,
   [string]$RepoOwner = "thanhphuong-dev",
   [string]$RepoName = "CADAddinManager"
@@ -15,7 +14,6 @@ $root = Resolve-Path (Join-Path $PSScriptRoot "..")
 $artifactsDir = Join-Path $root "artifacts"
 
 $tag = if ($Version.StartsWith("v")) { $Version } else { "v$Version" }
-$normalizedVersion = $tag.TrimStart("v")
 
 function Get-GitHubToken {
   $output = "protocol=https`nhost=github.com`n`n" | git credential fill 2>$null
@@ -39,26 +37,30 @@ function Invoke-GitHubApi {
 }
 
 if (-not $SkipBuild) {
-  & (Join-Path $PSScriptRoot "package-vinacad.ps1") -Version $Version
-
-  $zwcadSdkFound = (Test-Path "C:\Program Files\ZWSOFT\ZWCAD 2021\ZwManaged.dll") -or
-                   (Test-Path "C:\Program Files\ZWSOFT\ZWCAD 2026\ZwManaged.dll")
-  if ($IncludeZWCAD -and -not $zwcadSdkFound) {
-    Write-Warning "ZWCAD SDK was not found; skipping ZWCAD packaging."
-    $IncludeZWCAD = $false
+  # VinaCAD needs its local SDK; ZWCAD and GstarCAD build from NuGet packages on any machine.
+  try {
+    & (Join-Path $PSScriptRoot "package-vinacad.ps1") -Version $Version
+  } catch {
+    Write-Warning "VinaCAD packaging failed: $($_.Exception.Message)"
   }
-  if ($IncludeZWCAD) {
+  try {
     & (Join-Path $PSScriptRoot "package-zwcad.ps1") -Version $Version
+  } catch {
+    Write-Warning "ZWCAD packaging failed: $($_.Exception.Message)"
+  }
+  try {
+    & (Join-Path $PSScriptRoot "package-gstarcad.ps1") -Version $Version
+  } catch {
+    Write-Warning "GstarCAD packaging failed: $($_.Exception.Message)"
   }
 }
 
 $assetFiles = @(
   (Join-Path $artifactsDir "CADAddinManager-VinaCAD-$Version-bundle.zip"),
-  (Join-Path $artifactsDir "CADAddinManager-VinaCAD-$Version-setup.exe")
+  (Join-Path $artifactsDir "CADAddinManager-VinaCAD-$Version-setup.exe"),
+  (Join-Path $artifactsDir "CADAddinManager-GstarCAD-$Version.zip")
 )
-if ($IncludeZWCAD) {
-  $assetFiles += (Get-ChildItem -Path $artifactsDir -Filter "CADAddinManager-ZWCAD$normalizedVersion-*.zip" -ErrorAction SilentlyContinue).FullName
-}
+$assetFiles += (Get-ChildItem -Path $artifactsDir -Filter "CADAddinManager-ZWCAD*-$Version.zip" -ErrorAction SilentlyContinue).FullName
 $assetFiles = @($assetFiles | Where-Object { $_ -and (Test-Path $_) })
 
 if ($assetFiles.Count -eq 0) {

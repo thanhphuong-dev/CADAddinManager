@@ -23,6 +23,9 @@ jobs:
           - Release A24
           - Release A25
           - Release A26
+          - Release Z21
+          - Release Z26
+          - Release G26
 
     steps:
       - name: Checkout

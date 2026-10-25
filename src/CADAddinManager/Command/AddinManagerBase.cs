@@ -7,6 +7,9 @@ using Teigha.Runtime;
 #elif ZWCAD
 using ZwSoft.ZwCAD.ApplicationServices;
 using ZwSoft.ZwCAD.Runtime;
+#elif GSTARCAD
+using Gssoft.Gscad.ApplicationServices;
+using Gssoft.Gscad.Runtime;
 #else
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.Runtime;
@@ -18,6 +21,8 @@ using CADAddinManager.ViewModel;
 using Application = Prima.VinaCAD.ApplicationServices.Application;
 #elif ZWCAD
 using Application = ZwSoft.ZwCAD.ApplicationServices.Application;
+#elif GSTARCAD
+using Application = Gssoft.Gscad.ApplicationServices.Application;
 #else
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 #endif

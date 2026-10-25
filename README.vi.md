@@ -36,7 +36,8 @@ CAD Add-in Manager là công cụ hỗ trợ phát triển add-in trên các n�
 | Phần mềm | Phiên bản | Nền .NET | Ghi chú |
 |---|---|---|---|
 | AutoCAD | 2020–2026 | .NET Framework 4.8 (2020–2024), .NET 8 (2025–2026) | Build qua các gói NuGet AutoCAD .NET API |
-| ZWCAD | 2021, 2026 | .NET Framework 4.8 | Build qua ZRX.NET API đi kèm bộ cài ZWCAD |
+| ZWCAD | 2021, 2026 | .NET Framework 4.8 | Build qua gói NuGet ZWCAD.NetApi |
+| GstarCAD | 2026 | .NET 8 | Build qua gói NuGet GstarCADNET |
 | VinaCAD | 2026.07.x | .NET 8 | Build qua VinaCAD/Teigha .NET 8 SDK |
 
 ## Các lệnh
@@ -77,6 +78,12 @@ CAD Add-in Manager là công cụ hỗ trợ phát triển add-in trên các n�
 2. Chạy `install-zwcad.bat` trong thư mục đã giải nén.
 3. Khởi động lại ZWCAD và chạy `CADManager`. Nếu bundle tự nạp không khả dụng, dùng `NETLOAD` để nạp DLL thủ công.
 
+### GstarCAD
+
+1. Tải và giải nén `CADAddinManager-GstarCAD-<version>.zip`.
+2. Mở GstarCAD, chạy `NETLOAD` và chọn `CADAddinManager.dll`.
+3. Chạy `CADManager`. (Bundle tự nạp cho GstarCAD chưa được cung cấp.)
+
 ### Cài thủ công
 
 Giải nén file `*-bundle.zip` tương ứng trong phần tải của bản phát hành, rồi chép thư mục `CADAddinManager.bundle` vào thư mục `ApplicationPlugins` nêu trên.
@@ -92,9 +99,10 @@ Khởi động lại phần mềm CAD. Tab **Add-in Manager** sẽ xuất hiện
 - Windows x64
 - Visual Studio 2022 hoặc mới hơn
 - .NET Framework 4.8 Developer Pack (AutoCAD 2020–2024, các bản ZWCAD)
-- .NET 8 SDK (AutoCAD 2025–2026, VinaCAD)
+- .NET 8 SDK (AutoCAD 2025–2026, GstarCAD và VinaCAD)
 - Đã cài VinaCAD 2026 trên máy, để build cấu hình `V26`
-- Đã cài ZWCAD 2021 / 2026 trên máy, để build cấu hình `Z21` / `Z26`
+
+Các assembly API ZWCAD (`ZWCAD.NetApi`) và GstarCAD (`GstarCADNET`) được NuGet tự tải về — không cần cài phần mềm CAD nào để build hai nền tảng này.
 
 ### Các cấu hình build
 
@@ -102,11 +110,17 @@ Mỗi phần mềm được hỗ trợ có cấu hình build riêng:
 
 | Cấu hình | Phần mềm | Cấu hình | Phần mềm |
 |---|---|---|---|
-| `Debug/Release A20` | AutoCAD 2020 | `Debug/Release A25` | AutoCAD 2025 |
-| `Debug/Release A21` | AutoCAD 2021 | `Debug/Release A26` | AutoCAD 2026 |
-| `Debug/Release A22` | AutoCAD 2022 | `Debug/Release V26` | VinaCAD 2026 |
-| `Debug/Release A23` | AutoCAD 2023 | `Debug/Release Z21` | ZWCAD 2021 |
-| `Debug/Release A24` | AutoCAD 2024 | `Debug/Release Z26` | ZWCAD 2026 |
+| `Debug/Release A20` | AutoCAD 2020 |
+| `Debug/Release A21` | AutoCAD 2021 |
+| `Debug/Release A22` | AutoCAD 2022 |
+| `Debug/Release A23` | AutoCAD 2023 |
+| `Debug/Release A24` | AutoCAD 2024 |
+| `Debug/Release A25` | AutoCAD 2025 |
+| `Debug/Release A26` | AutoCAD 2026 |
+| `Debug/Release Z21` | ZWCAD 2021 |
+| `Debug/Release Z26` | ZWCAD 2026 |
+| `Debug/Release G26` | GstarCAD 2026 |
+| `Debug/Release V26` | VinaCAD 2026 |
 
 ### Build
 
@@ -121,9 +135,6 @@ Nếu SDK được cài ở thư mục không mặc định, chỉ định đư�
 # VinaCAD (mặc định: C:\Program Files\VinaCAD\VinaCAD 2026)
 dotnet build CADAddinManager.sln --configuration "Release V26" -p:VinaCadInstallDir="D:\VinaCAD 2026"
 
-# ZWCAD (mặc định: C:\Program Files\ZWSOFT\ZWCAD <version>)
-dotnet build CADAddinManager.sln --configuration "Release Z26" -p:ZwcadInstallDir="D:\ZWSOFT\ZWCAD 2026"
-```
 
 ## Triển khai bundle trên máy phát triển
 
@@ -157,7 +168,7 @@ Hoặc chạy từng bước đóng gói riêng lẻ:
 
 Toàn bộ kết quả được ghi vào thư mục `artifacts/`.
 
-Khi push một tag dạng `v*`, workflow release sẽ tự động chạy: build các gói AutoCAD trên GitHub-hosted runner và đính kèm vào GitHub Release. Gói VinaCAD và ZWCAD cần được đóng gói thủ công trên máy có cài SDK tương ứng.
+Khi push một tag dạng `v*`, workflow release sẽ tự động chạy: build các gói AutoCAD, ZWCAD và GstarCAD trên GitHub-hosted runner rồi đính kèm vào GitHub Release. Gói VinaCAD cần được đóng gói thủ công trên máy có cài VinaCAD SDK (hoặc dùng `tools/upload-release-assets.ps1` để build và upload tất cả các gói build-được-locally trong một bước).
 
 ## Cấu trúc dự án
 

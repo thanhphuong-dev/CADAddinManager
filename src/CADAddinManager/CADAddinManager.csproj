@@ -7,8 +7,8 @@
     <Nullable>disable</Nullable>
     <PlatformTarget>x64</PlatformTarget>
     <TargetFramework>net48</TargetFramework>
-    <Configurations>Debug A20;Debug A21;Debug A22;Debug A23;Debug A24;Debug A25;Debug A26;Debug V26;Debug Z21;Debug Z26</Configurations>
-    <Configurations>$(Configurations);Release A20;Release A21;Release A22;Release A23;Release A24;Release A25;Release A26;Release V26;Release Z21;Release Z26</Configurations>
+    <Configurations>Debug A20;Debug A21;Debug A22;Debug A23;Debug A24;Debug A25;Debug A26;Debug V26;Debug Z21;Debug Z26;Debug G26</Configurations>
+    <Configurations>$(Configurations);Release A20;Release A21;Release A22;Release A23;Release A24;Release A25;Release A26;Release V26;Release Z21;Release Z26;Release G26</Configurations>
     <CADVersion>2026</CADVersion>
     <CADTrimVersion>26</CADTrimVersion>
     <RootNamespace>CADAddinManager</RootNamespace>
@@ -80,12 +80,18 @@
   <PropertyGroup Condition="$(Configuration.Contains('Z21'))">
     <CADVersion>2021</CADVersion><CADTrimVersion>Z21</CADTrimVersion>
     <DefineConstants>$(DefineConstants);ZWCAD;Z21</DefineConstants>
-    <ZwcadInstallDir Condition="'$(ZwcadInstallDir)' == ''">C:\Program Files\ZWSOFT\ZWCAD 2021</ZwcadInstallDir>
+    <ZwcadApiVersion>20.21.0</ZwcadApiVersion>
   </PropertyGroup>
   <PropertyGroup Condition="$(Configuration.Contains('Z26'))">
     <CADVersion>2026</CADVersion><CADTrimVersion>Z26</CADTrimVersion>
     <DefineConstants>$(DefineConstants);ZWCAD;Z26</DefineConstants>
-    <ZwcadInstallDir Condition="'$(ZwcadInstallDir)' == ''">C:\Program Files\ZWSOFT\ZWCAD 2026</ZwcadInstallDir>
+    <ZwcadApiVersion>20.26.0</ZwcadApiVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('G26'))">
+    <CADVersion>2026</CADVersion><CADTrimVersion>G26</CADTrimVersion>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <DefineConstants>$(DefineConstants);GSTARCAD;G26</DefineConstants>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
@@ -104,10 +110,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup Condition="$(Configuration.Contains('Z21')) Or $(Configuration.Contains('Z26'))">
-    <Reference Include="ZwManaged"><HintPath>$(ZwcadInstallDir)\ZwManaged.dll</HintPath><Private>false</Private></Reference>
-    <Reference Include="ZwDatabaseMgd"><HintPath>$(ZwcadInstallDir)\ZwDatabaseMgd.dll</HintPath><Private>false</Private></Reference>
-    <Reference Include="ZcWindows"><HintPath>$(ZwcadInstallDir)\ZcWindows.dll</HintPath><Private>false</Private></Reference>
-    <Reference Include="ZdWindows"><HintPath>$(ZwcadInstallDir)\ZdWindows.dll</HintPath><Private>false</Private></Reference>
+    <PackageReference Include="ZWCAD.NetApi" Version="$(ZwcadApiVersion)" ExcludeAssets="runtime" />
+  </ItemGroup>
+  <ItemGroup Condition="$(Configuration.Contains('G26'))">
+    <PackageReference Include="GstarCADNET" Version="26.0.0" ExcludeAssets="runtime" />
   </ItemGroup>
 
   <ItemGroup>
@@ -141,16 +147,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Chuongmep.Acad.Api.acmgd" Version="$(CADVersion).*" Condition="!$(Configuration.Contains('V26')) And !$(Configuration.Contains('Z21')) And !$(Configuration.Contains('Z26'))">
+    <PackageReference Include="Chuongmep.Acad.Api.acmgd" Version="$(CADVersion).*" Condition="!$(Configuration.Contains('V26')) And !$(Configuration.Contains('Z21')) And !$(Configuration.Contains('Z26')) And !$(Configuration.Contains('G26'))">
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
-    <PackageReference Include="Chuongmep.Acad.Api.acdbmgd" Version="$(CADVersion).*" Condition="!$(Configuration.Contains('V26')) And !$(Configuration.Contains('Z21')) And !$(Configuration.Contains('Z26'))">
+    <PackageReference Include="Chuongmep.Acad.Api.acdbmgd" Version="$(CADVersion).*" Condition="!$(Configuration.Contains('V26')) And !$(Configuration.Contains('Z21')) And !$(Configuration.Contains('Z26')) And !$(Configuration.Contains('G26'))">
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
-    <PackageReference Include="Chuongmep.Acad.Api.accoremgd" Version="$(CADVersion).*" Condition="!$(Configuration.Contains('V26')) And !$(Configuration.Contains('Z21')) And !$(Configuration.Contains('Z26'))">
+    <PackageReference Include="Chuongmep.Acad.Api.accoremgd" Version="$(CADVersion).*" Condition="!$(Configuration.Contains('V26')) And !$(Configuration.Contains('Z21')) And !$(Configuration.Contains('Z26')) And !$(Configuration.Contains('G26'))">
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
-    <PackageReference Include="Chuongmep.Acad.Api.AdWindows" Version="$(CADVersion).*" Condition="!$(Configuration.Contains('V26')) And !$(Configuration.Contains('Z21')) And !$(Configuration.Contains('Z26'))">
+    <PackageReference Include="Chuongmep.Acad.Api.AdWindows" Version="$(CADVersion).*" Condition="!$(Configuration.Contains('V26')) And !$(Configuration.Contains('Z21')) And !$(Configuration.Contains('Z26')) And !$(Configuration.Contains('G26'))">
       <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
     <PackageReference Include="Mono.Cecil" Version="0.11.4" />
@@ -184,9 +190,6 @@
   <Target Name="ValidateVinaCadSdk" BeforeTargets="ResolveAssemblyReferences" Condition="$(Configuration.Contains('V26'))">
     <Error Condition="!Exists('$(VinaCadInstallDir)\TD_Mgd_Net8_26.12_17.dll') Or !Exists('$(VinaCadInstallDir)\VinaCADCoreMgd_Net8.dll')"
            Text="VinaCAD 2026 .NET SDK assemblies were not found in '$(VinaCadInstallDir)'. Set -p:VinaCadInstallDir=&quot;...&quot; to the VinaCAD installation directory." />
-  </Target>
-  <Target Name="ValidateZwcadSdk" BeforeTargets="ResolveAssemblyReferences" Condition="$(Configuration.Contains('Z21')) Or $(Configuration.Contains('Z26'))">
-    <Error Condition="!Exists('$(ZwcadInstallDir)\ZwManaged.dll') Or !Exists('$(ZwcadInstallDir)\ZwDatabaseMgd.dll') Or !Exists('$(ZwcadInstallDir)\ZcWindows.dll') Or !Exists('$(ZwcadInstallDir)\ZdWindows.dll')" Text="ZWCAD .NET SDK assemblies were not found in '$(ZwcadInstallDir)'." />
   </Target>
 
   <Target Name="CopyVinaCadBundleFiles" AfterTargets="CoreBuild"

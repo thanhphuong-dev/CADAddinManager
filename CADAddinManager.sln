@@ -19,6 +19,7 @@ Global
 		Debug V26|Any CPU = Debug V26|Any CPU
 		Debug Z21|Any CPU = Debug Z21|Any CPU
 		Debug Z26|Any CPU = Debug Z26|Any CPU
+		Debug G26|Any CPU = Debug G26|Any CPU
 		Release A20|Any CPU = Release A20|Any CPU
 		Release A21|Any CPU = Release A21|Any CPU
 		Release A22|Any CPU = Release A22|Any CPU
@@ -29,6 +30,7 @@ Global
 		Release V26|Any CPU = Release V26|Any CPU
 		Release Z21|Any CPU = Release Z21|Any CPU
 		Release Z26|Any CPU = Release Z26|Any CPU
+		Release G26|Any CPU = Release G26|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CF3A0233-6AA2-4FD4-8848-D932A7578098}.Debug A20|Any CPU.ActiveCfg = Debug A20|Any CPU
@@ -50,6 +52,8 @@ Global
 		{CF3A0233-6AA2-4FD4-8848-D932A7578098}.Debug Z21|Any CPU.ActiveCfg = Debug Z21|Any CPU
 		{CF3A0233-6AA2-4FD4-8848-D932A7578098}.Debug Z21|Any CPU.Build.0 = Debug Z21|Any CPU
 		{CF3A0233-6AA2-4FD4-8848-D932A7578098}.Debug Z26|Any CPU.ActiveCfg = Debug Z26|Any CPU
+		{CF3A0233-6AA2-4FD4-8848-D932A7578098}.Debug G26|Any CPU.ActiveCfg = Debug G26|Any CPU
+		{CF3A0233-6AA2-4FD4-8848-D932A7578098}.Debug G26|Any CPU.Build.0 = Debug G26|Any CPU
 		{CF3A0233-6AA2-4FD4-8848-D932A7578098}.Debug Z26|Any CPU.Build.0 = Debug Z26|Any CPU
 		{CF3A0233-6AA2-4FD4-8848-D932A7578098}.Release A20|Any CPU.ActiveCfg = Release A20|Any CPU
 		{CF3A0233-6AA2-4FD4-8848-D932A7578098}.Release A20|Any CPU.Build.0 = Release A20|Any CPU
@@ -70,6 +74,8 @@ Global
 		{CF3A0233-6AA2-4FD4-8848-D932A7578098}.Release Z21|Any CPU.ActiveCfg = Release Z21|Any CPU
 		{CF3A0233-6AA2-4FD4-8848-D932A7578098}.Release Z21|Any CPU.Build.0 = Release Z21|Any CPU
 		{CF3A0233-6AA2-4FD4-8848-D932A7578098}.Release Z26|Any CPU.ActiveCfg = Release Z26|Any CPU
+		{CF3A0233-6AA2-4FD4-8848-D932A7578098}.Release G26|Any CPU.ActiveCfg = Release G26|Any CPU
+		{CF3A0233-6AA2-4FD4-8848-D932A7578098}.Release G26|Any CPU.Build.0 = Release G26|Any CPU
 		{CF3A0233-6AA2-4FD4-8848-D932A7578098}.Release Z26|Any CPU.Build.0 = Release Z26|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution

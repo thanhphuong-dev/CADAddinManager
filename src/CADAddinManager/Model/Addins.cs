@@ -4,6 +4,8 @@ using System.Reflection;
 using Teigha.Runtime;
 #elif ZWCAD
 using ZwSoft.ZwCAD.Runtime;
+#elif GSTARCAD
+using Gssoft.Gscad.Runtime;
 #else
 using Autodesk.AutoCAD.Runtime;
 #endif

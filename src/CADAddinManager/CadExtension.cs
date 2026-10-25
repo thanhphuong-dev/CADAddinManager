@@ -1,6 +1,9 @@
 #if !VINACAD
 #if ZWCAD
 using ZwSoft.ZwCAD.Runtime;
+#elif GSTARCAD
+using Gssoft.Gscad.Internal;
+using Gssoft.Gscad.Runtime;
 #else
 using Autodesk.AutoCAD.Runtime;
 #endif

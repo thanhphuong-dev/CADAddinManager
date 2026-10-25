@@ -36,6 +36,8 @@ jobs:
           }
           ./tools/package-release.ps1 -Version $version
           ./tools/build-installer.ps1 -Version $version
+          ./tools/package-zwcad.ps1 -Version $version
+          ./tools/package-gstarcad.ps1 -Version $version
 
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2

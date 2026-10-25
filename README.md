@@ -36,7 +36,8 @@ CAD Add-in Manager is a developer utility for CAD platforms. It lets you load, i
 | Host | Versions | .NET runtime | Notes |
 |---|---|---|---|
 | AutoCAD | 2020–2026 | .NET Framework 4.8 (2020–2024), .NET 8 (2025–2026) | Builds against the AutoCAD .NET API NuGet packages |
-| ZWCAD | 2021, 2026 | .NET Framework 4.8 | Builds against the ZRX.NET API installed with ZWCAD |
+| ZWCAD | 2021, 2026 | .NET Framework 4.8 | Builds against the ZWCAD.NetApi NuGet package |
+| GstarCAD | 2026 | .NET 8 | Builds against the GstarCADNET NuGet package |
 | VinaCAD | 2026.07.x | .NET 8 | Builds against the VinaCAD/Teigha .NET 8 SDK |
 
 ## Commands
@@ -77,6 +78,12 @@ Close the target CAD application before installing or updating.
 2. Run `install-zwcad.bat` from the extracted folder.
 3. Restart ZWCAD and run `CADManager`. If autoload is unavailable, use `NETLOAD` to load the DLL manually.
 
+### GstarCAD
+
+1. Download and extract `CADAddinManager-GstarCAD-<version>.zip`.
+2. Start GstarCAD, run `NETLOAD` and select `CADAddinManager.dll`.
+3. Run `CADManager`. (An autoload bundle for GstarCAD is not provided yet.)
+
 ### Manual installation
 
 Extract the matching `*-bundle.zip` from the release assets and copy the contained `CADAddinManager.bundle` directory into the corresponding `ApplicationPlugins` folder shown above.
@@ -92,21 +99,28 @@ Restart the CAD host. The **Add-in Manager** tab appears on the ribbon — or si
 - Windows x64
 - Visual Studio 2022 or newer
 - .NET Framework 4.8 Developer Pack (AutoCAD 2020–2024, ZWCAD builds)
-- .NET 8 SDK (AutoCAD 2025–2026, VinaCAD builds)
+- .NET 8 SDK (AutoCAD 2025–2026, GstarCAD and VinaCAD builds)
 - VinaCAD 2026 installed locally, for `V26` builds
-- ZWCAD 2021 / 2026 installed locally, for `Z21` / `Z26` builds
+
+The ZWCAD (`ZWCAD.NetApi`) and GstarCAD (`GstarCADNET`) API assemblies are restored automatically from NuGet — no CAD installation is required to build them.
 
 ### Configurations
 
 Each supported host has a dedicated build configuration:
 
-| Configuration | Host | Configuration | Host |
-|---|---|---|---|
-| `Debug/Release A20` | AutoCAD 2020 | `Debug/Release A25` | AutoCAD 2025 |
-| `Debug/Release A21` | AutoCAD 2021 | `Debug/Release A26` | AutoCAD 2026 |
-| `Debug/Release A22` | AutoCAD 2022 | `Debug/Release V26` | VinaCAD 2026 |
-| `Debug/Release A23` | AutoCAD 2023 | `Debug/Release Z21` | ZWCAD 2021 |
-| `Debug/Release A24` | AutoCAD 2024 | `Debug/Release Z26` | ZWCAD 2026 |
+| Configuration | Host |
+|---|---|
+| `Debug/Release A20` | AutoCAD 2020 |
+| `Debug/Release A21` | AutoCAD 2021 |
+| `Debug/Release A22` | AutoCAD 2022 |
+| `Debug/Release A23` | AutoCAD 2023 |
+| `Debug/Release A24` | AutoCAD 2024 |
+| `Debug/Release A25` | AutoCAD 2025 |
+| `Debug/Release A26` | AutoCAD 2026 |
+| `Debug/Release Z21` | ZWCAD 2021 |
+| `Debug/Release Z26` | ZWCAD 2026 |
+| `Debug/Release G26` | GstarCAD 2026 |
+| `Debug/Release V26` | VinaCAD 2026 |
 
 ### Build
 
@@ -120,9 +134,6 @@ If an SDK is installed in a non-default location, point the build at it:
 ```powershell
 # VinaCAD (default: C:\Program Files\VinaCAD\VinaCAD 2026)
 dotnet build CADAddinManager.sln --configuration "Release V26" -p:VinaCadInstallDir="D:\VinaCAD 2026"
-
-# ZWCAD (default: C:\Program Files\ZWSOFT\ZWCAD <version>)
-dotnet build CADAddinManager.sln --configuration "Release Z26" -p:ZwcadInstallDir="D:\ZWSOFT\ZWCAD 2026"
 ```
 
 ## Local bundle deployment
@@ -157,7 +168,7 @@ Or run individual packaging steps:
 
 All artifacts are written to `artifacts/`.
 
-Pushing a `v*` tag triggers the release workflow, which builds the AutoCAD packages on GitHub-hosted runners and attaches them to a GitHub Release automatically. VinaCAD and ZWCAD packages must be built locally on a machine with the corresponding SDK installed.
+Pushing a `v*` tag triggers the release workflow, which builds the AutoCAD, ZWCAD and GstarCAD packages on GitHub-hosted runners and attaches them to a GitHub Release automatically. VinaCAD packages must be built locally on a machine with the VinaCAD SDK installed (or with `tools/upload-release-assets.ps1`, which builds and uploads every locally-buildable package in one step).
 
 ## Project layout
 

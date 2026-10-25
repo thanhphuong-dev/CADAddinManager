@@ -13,6 +13,8 @@ using Microsoft.Win32;
 using Application = Prima.VinaCAD.ApplicationServices.Application;
 #elif ZWCAD
 using Application = ZwSoft.ZwCAD.ApplicationServices.Application;
+#elif GSTARCAD
+using Application = Gssoft.Gscad.ApplicationServices.Application;
 #else
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 #endif
@@ -152,6 +154,8 @@ public class AddInManagerViewModel : ViewModelBase
     public string VersionRangeText => "ZWCAD 2021";
 #elif Z26
     public string VersionRangeText => "ZWCAD 2026";
+#elif GSTARCAD
+    public string VersionRangeText => "GstarCAD 2026";
 #elif VINACAD
     public string VersionRangeText => "VinaCAD 2026";
 #else

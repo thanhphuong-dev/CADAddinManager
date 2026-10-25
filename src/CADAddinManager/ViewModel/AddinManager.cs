@@ -7,6 +7,8 @@ using CADAddinManager.Model;
 using Application = Prima.VinaCAD.ApplicationServices.Application;
 #elif ZWCAD
 using Application = ZwSoft.ZwCAD.ApplicationServices.Application;
+#elif GSTARCAD
+using Application = Gssoft.Gscad.ApplicationServices.Application;
 #else
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 #endif

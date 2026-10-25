@@ -6,6 +6,9 @@ using Teigha.Runtime;
 #elif ZWCAD
 using ZwSoft.ZwCAD.Runtime;
 using ZwSoft.ZwCAD.Windows;
+#elif GSTARCAD
+using Gssoft.Gscad.Runtime;
+using Gssoft.Gscad.Windows;
 #else
 using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.Windows;
