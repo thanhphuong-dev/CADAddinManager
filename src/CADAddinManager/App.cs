@@ -13,6 +13,7 @@ using CADAddinManager.View.Control;
 using ImageSource = System.Windows.Media.ImageSource;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Orientation = System.Windows.Controls.Orientation;
 
 namespace CADAddinManager;
@@ -37,26 +38,55 @@ public class App : ICadCommand, IExtensionApplication
     {
     }
 
-    private void CreateRibbon()
+    private static void CreateRibbon()
     {
         RibbonControl ribbon = ComponentManager.Ribbon;
-        if (ribbon != null)
+        if (ribbon == null)
         {
-            RibbonTab rtab = ribbon.FindTab(RibbonId);
-            if (rtab != null)
-            {
-                ribbon.Tabs.Remove(rtab);
-            }
-
-            rtab = new RibbonTab();
-            rtab.Title = RibbonTitle;
-            rtab.Id = RibbonId;
-            ribbon.Tabs.Add(rtab);
-            AddContentToTab(rtab);
+            ScheduleRibbonCreation();
+            return;
         }
+
+        RibbonTab rtab = ribbon.FindTab(RibbonId);
+        if (rtab != null)
+        {
+            ribbon.Tabs.Remove(rtab);
+        }
+
+        rtab = new RibbonTab();
+        rtab.Title = RibbonTitle;
+        rtab.Id = RibbonId;
+        ribbon.Tabs.Add(rtab);
+        AddContentToTab(rtab);
     }
 
-    private void AddContentToTab(RibbonTab rtab)
+    private const int RibbonRetryIntervalMs = 500;
+    private const int RibbonRetryLimit = 60;
+
+    private static void ScheduleRibbonCreation()
+    {
+        int attempts = 0;
+        var timer = new DispatcherTimer(
+            TimeSpan.FromMilliseconds(RibbonRetryIntervalMs),
+            DispatcherPriority.Background,
+            (sender, args) =>
+            {
+                var retry = (DispatcherTimer)sender;
+                if (ComponentManager.Ribbon != null)
+                {
+                    retry.Stop();
+                    CreateRibbon();
+                }
+                else if (++attempts >= RibbonRetryLimit)
+                {
+                    retry.Stop();
+                }
+            },
+            Dispatcher.CurrentDispatcher);
+        timer.Start();
+    }
+
+    private static void AddContentToTab(RibbonTab rtab)
     {
         rtab.Panels.Add(AddPanelOne());
     }
