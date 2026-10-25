@@ -26,11 +26,16 @@ function Get-GitHubToken {
 
 function Invoke-GitHubApi {
   param([string]$Method, [string]$Uri, [string]$Token, [string]$Body)
-  Invoke-RestMethod -Method $Method -Uri $Uri -Headers @{
+  $headers = @{
     Authorization = "Bearer $Token"
     Accept        = "application/vnd.github+json"
     "User-Agent"  = "CADAddinManager-release"
-  } -Body $Body -ContentType "application/json"
+  }
+  if ($Body) {
+    Invoke-RestMethod -Method $Method -Uri $Uri -Headers $headers -Body $Body -ContentType "application/json"
+  } else {
+    Invoke-RestMethod -Method $Method -Uri $Uri -Headers $headers
+  }
 }
 
 if (-not $SkipBuild) {
@@ -75,12 +80,16 @@ foreach ($file in $assetFiles) {
   }
 
   $uploadUri = "https://uploads.github.com/repos/$RepoOwner/$RepoName/releases/$($release.id)/assets?name=$([uri]::EscapeDataString($name))"
-  Invoke-RestMethod -Method Post -Uri $uploadUri -Headers @{
-    Authorization = "Bearer $token"
-    Accept        = "application/vnd.github+json"
-    "User-Agent"  = "CADAddinManager-release"
-  } -InFile $file -ContentType "application/octet-stream" | Out-Null
-  Write-Host "Uploaded: $name"
+  $tmp = New-TemporaryFile
+  $code = & curl.exe -s -o $tmp -w "%{http_code}" -X POST `
+    -H "Authorization: Bearer $token" `
+    -H "Accept: application/vnd.github+json" `
+    -H "Content-Type: application/octet-stream" `
+    --data-binary "@$file" `
+    $uploadUri
+  Remove-Item $tmp -ErrorAction SilentlyContinue
+  if ($code -notmatch '^20\d') { throw "Upload failed for $name (HTTP $code)" }
+  Write-Host "Uploaded: $name (HTTP $code)"
 }
 
 Write-Host ""
