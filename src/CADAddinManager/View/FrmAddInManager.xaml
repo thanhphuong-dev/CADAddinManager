@@ -471,6 +471,7 @@
         </Style>
 
         <Style TargetType="{x:Type TreeViewItem}">
+            <Setter Property="Foreground" Value="{DynamicResource InkBrush}" />
             <Setter Property="IsExpanded" Value="True" />
             <Setter Property="IsSelected" Value="{Binding IsInitiallySelected, Mode=TwoWay}" />
             <Setter Property="KeyboardNavigation.AcceptsReturn" Value="True" />
